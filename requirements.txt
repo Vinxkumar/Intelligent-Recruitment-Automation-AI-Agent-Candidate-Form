@@ -1,0 +1,4 @@
+flask
+cloudinary
+python-dotenv
+mysql-connector-python
