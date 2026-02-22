@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoRecruit AI | Application</title>
+    <style>
+        :root {
+            --bg-deep: #0f172a;
+            /* Dark Navy */
+            --bg-card: #1e293b;
+            /* Slate Grey */
+            --accent: #38bdf8;
+            /* Sky Blue */
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+            margin: 0;
+        }
+
+        .form-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 3rem;
+            width: 100%;
+            max-width: 700px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        fieldset {
+            border: none;
+            padding: 0;
+            margin-bottom: 2.5rem;
+        }
+
+        legend {
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            width: 100%;
+            padding-bottom: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            background: #0f172a;
+            /* Deep background for inputs */
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px;
+            color: white;
+            font-size: 0.95rem;
+            outline: none;
+            transition: 0.2s;
+            box-sizing: border-box;
+            /* Crucial to prevent overlapping */
+        }
+
+        input:focus,
+        select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
+        }
+
+        /* The Fix for Dropdown Overlap/White Background */
+        select option {
+            background-color: #0f172a;
+            color: white;
+        }
+
+        /* Layout Grid - Fixed alignment */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 15px;
+        }
+
+        #other-role-box {
+            display: none;
+            margin-top: 12px;
+        }
+
+        button {
+            width: 100%;
+            padding: 16px;
+            background-color: var(--accent);
+            border: none;
+            border-radius: 8px;
+            color: #0f172a;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            filter: brightness(1.1);
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 600px) {
+
+            .grid,
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="form-container">
+        <h1>Recruit Engine</h1>
+        <p class="subtitle">AI-Powered Talent Acquisition v2.0</p>
+
+        <form action="/submit" method="POST" enctype="multipart/form-data">
+
+            <fieldset>
+                <legend>Position & Expertise</legend>
+                <div class="grid">
+                    <div class="form-group">
+                        <label>Applying For *</label>
+                        <select name="expertise" required onchange="toggleOther(this)">
+                            <option value="" disabled selected>Choose Expertise</option>
+                            <option value="Frontend Developer">Frontend Developer</option>
+                            <option value="Backend Developer">Backend Developer</option>
+                            <option value="AI Engineer">AI Engineer</option>
+                            <option value="other">Other...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Gender *</label>
+                        <select name="gender" required>
+                            <option value="" disabled selected>Select</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Non-binary</option>
+                            <option value="N/A">Prefer not to say</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="other-role-box">
+                    <label>Please specify expertise</label>
+                    <input type="text" name="other_role" id="other_input" placeholder="e.g. DevOps Engineer">
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Personal & Contact</legend>
+                <div class="grid">
+                    <div class="form-group">
+                        <label>First Name *</label>
+                        <input type="text" name="first_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Family Name *</label>
+                        <input type="text" name="family_name" required>
+                    </div>
+                </div>
+
+                <div class="grid">
+                    <div class="form-group">
+                        <label>Email Address *</label>
+                        <input type="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number *</label>
+                        <input type="tel" name="phone" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Date of Birth</label>
+                    <input type="date" name="dob">
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Location Details</legend>
+                <div class="form-group">
+                    <label>Street Address</label>
+                    <input type="text" name="address">
+                </div>
+
+                <div class="grid-3">
+                    <div class="form-group">
+                        <label>City</label>
+                        <input type="text" name="city">
+                    </div>
+                    <div class="form-group">
+                        <label>State</label>
+                        <input type="text" name="state">
+                    </div>
+                    <div class="form-group">
+                        <label>Pincode</label>
+                        <input type="text" name="pincode">
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Documents</legend>
+                <div class="form-group">
+                    <label>Resume / CV (PDF Only) *</label>
+                    <input type="file" name="resume" accept=".pdf" required>
+                </div>
+            </fieldset>
+
+            <div style="margin-bottom: 2rem;">
+                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                    <input type="checkbox" name="agree" style="width: auto;" required>
+                    <span>I agree to the data processing terms.</span>
+                </label>
+            </div>
+
+            <button type="submit">Apply</button>
+        </form>
+    </div>
+
+    <script>
+        function toggleOther(select) {
+            const otherBox = document.getElementById('other-role-box');
+            const otherInput = document.getElementById('other_input');
+            if (select.value === 'other') {
+                otherBox.style.display = 'block';
+                otherInput.required = true;
+                otherInput.focus();
+            } else {
+                otherBox.style.display = 'none';
+                otherInput.required = false;
+            }
+        }
+    </script>
+
+</body>
+
+</html>
