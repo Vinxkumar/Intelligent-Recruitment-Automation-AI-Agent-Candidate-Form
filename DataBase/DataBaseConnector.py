@@ -19,7 +19,7 @@ class DataBaseConnection:
                 user=os.getenv("USER_NAME"),
                 password=os.getenv("PASSWORD"),
                 database=os.getenv("DATABASE"),
-                port=int(os.getenv("MYSQLPORT"),
+                port=3306,
                 autocommit = True
             )
         )
